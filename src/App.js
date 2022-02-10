@@ -1,5 +1,5 @@
 import React from "react";
-import "antd/dist/antd.css"; //antd docs recomended way
+import "antd/dist/antd.css"; 
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Layout, Space, Divider } from "antd";
 import { MainStore } from "./Components/MainStore";
@@ -9,6 +9,7 @@ import HomeScreen from "./Components/HomeScreen";
 import WorkersScreen from "./Components/WorkersScreen";
 
 const { Header, Content, Footer } = Layout;
+
 function App() {
   return (
     <Layout>

@@ -1,31 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { toJS } from "mobx";
 import { observer } from "mobx-react";
 import { Row, Col, Button, Card, Divider } from "antd";
 
 const WorkersScreen = observer(({ MainStore }) => {
-  const [value, setValue] = useState("");
 
-  let ppl;
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetch(`https://jsonplaceholder.typicode.com/users`);
       const people = await result.json();
-      console.log(people);
-      if (MainStore.candidates.length < 6) {
+      if (MainStore.candidates.length < 2) { // development purposes only due to live rerendering, useless in production
         MainStore.loadCandidates(people);
       }
     };
     fetchData();
   }, []);
-
-  const onInputChange = (e) => {
-    setValue(e.target.value);
-  };
-
-  const onButtonClick = () => {
-    MainStore.addTool(value, Date.now());
-  };
 
   const hireHim = (person) => {
     MainStore.hireCandidate(person);
@@ -39,7 +28,7 @@ const WorkersScreen = observer(({ MainStore }) => {
     const clone = toJS(MainStore.workers);
     return clone.map((worker) => {
       return (
-        <Col span={8}>
+        <Col key={worker.id} span={8}>
           <Card
             key={worker.id}
             title={worker.name}
@@ -69,9 +58,7 @@ const WorkersScreen = observer(({ MainStore }) => {
   return (
     <>
     <div style={{margin:10}}>
-      
       <Divider orientation="left"><h2>Your Team:</h2></Divider>
-      
       <Row>{renderWorkers()}</Row>
       <Divider orientation="left"><h2>Avaible to hire:</h2></Divider>
       <ul>{renderCandidates()}</ul>
