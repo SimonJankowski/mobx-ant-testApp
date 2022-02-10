@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "antd/dist/antd.css"; //antd docs recomended way
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Layout, Space, Divider } from "antd";
+import { MainStore } from "./Components/MainStore";
 
+import OrdersScreen from "./Components/OrderScreen";
+import HomeScreen from "./Components/HomeScreen";
+import WorkersScreen from "./Components/WorkersScreen";
+
+const { Header, Content, Footer } = Layout;
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <BrowserRouter>
+        <Header>
+              <Space size="large">
+                <Link className="" to="/">
+                  Home
+                </Link>
+                <Link to="/orders">Orders</Link>
+                <Link to="/workers">Workers</Link>
+              </Space>
+        </Header>
+        <Content>
+          <Routes >
+            <Route path="/" element={<HomeScreen MainStore={MainStore}/>} />
+            <Route path="/orders" element={<OrdersScreen />} />
+            <Route path="/workers" element={<WorkersScreen MainStore={MainStore}/>} />
+          </Routes>
+        </Content>
+        <Divider ></Divider>
+        <Footer>
+        &reg; Simon Jankowski
+          </Footer>
+      </BrowserRouter>
+    </Layout>
   );
 }
 
