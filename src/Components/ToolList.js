@@ -9,7 +9,6 @@ import {
   Space,
   Divider,
   Row,
-  Col,
   Card
 } from "antd";
 const { Option } = Select;
